@@ -71,5 +71,18 @@ What do we mean by the variance and bias of a statistical learning method?
 
 ###### The Classification Setting
 
+- [ ] **The Bayes Classifier**
+- Didn't clearly get the idea. Go through it again
+- Bayes Decision boundary
+- The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate.
+- The Bayes error rate is analogous to the irreducible error, discussed earlier
 
+**K-Nearest Negihbours**
+
+In theory we would always like to predict qualitative responses using the
+Bayes classifier. But for real data, we do not know the conditional distribution of Y given X, and so computing the Bayes classifier is impossible. Therefore, the Bayes classifier serves as an unattainable gold standard against which to compare other methods. Many approaches attempt to estimate the conditional distribution of Y given X, and then classify a given observation to the class with highest estimated probability.
+
+One such method is the K-nearest neighbors (KNN) classifier. Given a positive integer K and a test observation x0, the KNN classifier first identifies the neighbors K points in the training data that are closest to x0.
+
+Despite the fact that it is a very simple approach, KNN can often produce classifiers that are surprisingly close to the optimal Bayes classifier.
     
