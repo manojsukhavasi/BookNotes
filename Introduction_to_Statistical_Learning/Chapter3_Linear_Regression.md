@@ -56,3 +56,65 @@ The simple and multiple regression coefficients can be quite different. This ste
     
 - [ ]     Page 76 and Page 77 needs to read again
 
+2. Deciding on the important variables
+	It is possible that all of the predictors are associated with the response, but it is more often the case that the response is only related to a subset of the predictors. The task of determining which predictors are associated with the response, in order to fit a single model involving only those predictors, is referred to as variable selection. 
+    
+    There are three classical approaches for this task:
+    1. **Forward selection** : We begin with the null model—a model that contains an intercept but no predictors. We then fit p simple linear regressions and add to the null model the variable that results in the lowest RSS. We then add to that model the variable that results in the lowest RSS for the new two-variable model. This approach is continued until some stopping rule is satisfied.
+    2. **Backward selection** : We start with all variables in the model, and remove the variable with the largest p-value—that is, the variable selection that is the least statistically significant. The new (p − 1)-variable model is fit, and the variable with the largest p-value is removed. This procedure continues until a stopping rule is reached. For instance, we may stop when all remaining variables have a p-value below some threshold.
+    3. **Mixed selection.** : This is a combination of forward and backward selection. We start with no variables in the model, and as with forward selection selection, we add the variable that provides the best fit. We continue to add variables one-by-one. Of course, as we noted with the Advertising example, the p-values for variables can become larger as new predictors are added to the model. Hence, if at any point the p-value for one of the variables in the model rises above a certain threshold, then we remove that variable from the model. We continue to perform these forward and backward steps until all variables in the model have a sufficiently low p-value, and all variables outside the model would have a large p-value if added to the mode
+
+3. Model Fit
+	Two of the most common numerical measures of model fit are the RSE and R^2, the fraction of variance explained.
+    In other words, there is a small increase in R2 if we include newspaper advertising in the model that already contains TV and radio advertising, even though we saw earlier that the p-value for newspaper advertising is not significant. It turns out that R2 will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. This is due to the fact that adding another variable to the least squares equations must allow us to fit the training data (though not necessarily the testing data) more accurately. Thus, the R2 statistic, which is also computed on the training data, must increase. The fact that adding newspaper advertising to the model containing only TV and radio advertising leads to just a tiny increase in R2 provides additional evidence that newspaper can be dropped from the model. Essentially, newspaper provides no real improvement in the model fit to the training samples, and its inclusion will likely lead to poor results on independent test samples due to overfitting.
+    
+4. Predictions
+	Confidence Intervals: Since least squares coefficients are prediction for the population coefficients assuming the linear modela assumption. Otherwise there is also model bias inovlved.
+	Prediction Intervals : accounts the Irreducible error
+    
+#### Other Considerations in the Regression Model
+
+###### Qualitative Predictors
+In our discussion so far, we have assumed that all variables in our linear regression model are quantitative. But in practice, this is not necessarily the case; often some predictors are qualitative
+
+**Predictors with Only Two Levels**
+
+Create dummy variables
+
+**Qualitative Predictors with More than Two Levels**
+
+Create more dummy variables
+
+###### Extensions of the Linear Model
+
+The standard linear regression model provides interpretable results and works quite well on many real-world problems. However, it makes several highly restrictive assumptions that are often violated in practice. Two of the most important assumptions state that the relationship between the predictors and response are additive and linear. THe additive assumption means that the effect of changes in a predictor Xj on the response is independent of the values of the other predictors. The linear assumption states that the change in the response Y due to a one-unit change in Xj is constant, regardless of the value of Xj.
+
+**Removing the Additive Assumption**
+
+Interaction effect : Between two variables
+
+The hierarchical principle states that if we include an interaction in a model, we should also include the main effects, even if the p-values associated with their coefficients are not significant.
+
+However, the concept of interactions applies just as well to qualitative variables, or to a combination of quantitative and qualitative variables. In fact, an interaction between a qualitative variable and a quantitative variable has a particularly nice interpretation
+
+**Non-linear Relationships**
+In some cases, the true relationship between the response and the predictors may be nonlinear. Here we present a very simple way to directly extend the linear model to accommodate non-linear relationships, using polynomial regression.
+ 
+Extending the linear model to accommodate non-linear relationships is known as polynomial regression, since we have included polynomial functions of the predictors in the regression model. 
+
+###### Potential Problems
+
+1. **Non-linearity of the Data**
+	Residual plots are a useful graphical tool for identifying non-linearity.
+2. **Correlation of Error Terms**
+	Why might correlations among the error terms occur? Such correlations frequently occur in the context of time series data, which consists of observations for which measurements are obtained at discrete points in time. In many cases, observations that are obtained at adjacent time points will have positively correlated errors. In order to determine if this is the case for a given data set, we can plot the residuals from our model as a function of time. If the errors are uncorrelated, then there should be no discernible pattern. On the other hand, if the error terms are positively correlated, then we may see tracking in the residuals—that is, adjacent residuals may have similar values. 
+    
+3. **Non-constant Variance of Error Terms**
+	Unfortunately, it is often the case that the variances of the error terms are non-constant. For instance, the variances of the error terms may increase with the value of the response. One can identify non-constant variances in the errors, or heteroscedasticity, from the presence of a funnel shape in heteroscedathe residual plot. 
+    Sometimes we have a good idea of the variance of each response. Then we can use *Weighted least squares* - giving weights to each observation.
+    
+4. Outliers
+
+	In practice, it can be difficult to decide how large a residual needs to be before we consider the point to be an outlier. To address this problem, instead of plotting the residuals, we can plot the studentized residuals, computed by dividing each residual ei by its estimated standard error. Observations whose studentized residuals are greater than 3 in absolute value are possible outliers.
+    
+5. 
