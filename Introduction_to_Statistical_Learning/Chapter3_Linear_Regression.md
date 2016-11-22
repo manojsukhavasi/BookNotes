@@ -117,4 +117,35 @@ Extending the linear model to accommodate non-linear relationships is known as p
 
 	In practice, it can be difficult to decide how large a residual needs to be before we consider the point to be an outlier. To address this problem, instead of plotting the residuals, we can plot the studentized residuals, computed by dividing each residual ei by its estimated standard error. Observations whose studentized residuals are greater than 3 in absolute value are possible outliers.
     
-5. 
+5. High Leverage Points
+
+	observations with high leverage have an unusual values. high leverage observations tend to have a sizable impact on the estimated regression line. It is cause for concern if the least squares line is heavily affected by just a couple of observations, because any problems with these points may invalidate the entire fit. For this reason, it is important to identify high leverage observations.
+    In order to quantify an observation’s leverage, we compute the leverage statistic. A large value of this statistic indicates an observation with high leverage.
+    
+6. Collinearity
+
+	Collinearity refers to the situation in which two or more predictor variables are closely related to one another. 
+    The presence of collinearity can pose problems in the regression context, since it can be difficult to separate out the individual effects of collinear variables on the response.  Since collinearity reduces the accuracy of the estimates of the regression coefficients, it causes the standard error for β ˆj to grow. Recall that the t-statistic for each predictor is calculated by dividing β ˆj by its standard error. Consequently, collinearity results in a decline in the t-statistic. As a result, in the presence of collinearity, we may fail to reject null hypothesis.
+    A simple way to detect collinearity is to look at the correlation matrix of the predictors. 
+    
+    Unfortunately, not all collinearity problems can be detected by inspection of the correlation matrix: it is possible for collinearity to exist between three or more variables even if no pair of variables has a particularly high correlation. We call this situation multicollinearity. 
+    Instead of inspecting the correlation matrix, a better way to assess multicollinearity is to compute the variance inflation factor (VIF).
+    The VIF is the ratio of the variance of β ˆj when fitting the full model divided by the variance of β ˆj if fit on its own. The smallest possible value for VIF is 1, which indicates the complete absence of collinearity. Typically in practice there is a small amount of collinearity among the predictors. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.
+    
+    When faced with the problem of collinearity, there are two simple solutions. The first is to drop one of the problematic variables from the regression. This can usually be done without much compromise to the regression fit, since the presence of collinearity implies that the information that this variable provides about the response is redundant in the presence of the other variables.
+    The second solution is to combine the collinear variables together into a single predictor.
+    
+#### Comparison of Linear Regression with K-Nearest Neighbors 
+
+Non-parametric methods do not explicitly assume a parametric form for f(X), and thereby provide an alternative and more flexible approach for performing regression. We discuss various non-parametric methods in this book. Here we consider one of the simplest and best-known non-parametric methods, K-nearest neighbors regression (KNN regression)
+ 
+ The KNN regression method is closely related to the KNN classifier discussed in Chapter 2. Given a value for K and a prediction point x0, KNN regression first identifies the K training observations that are closest to x0, represented by N0. It then estimates f(x0) using the average of all the training responses in N0.
+ 
+ In what setting will a parametric approach such as least squares linear regression outperform a non-parametric approach such as KNN regression?
+ The answer is simple: the parametric approach will outperform the nonparametric approach if the parametric form that has been selected is close to the true form of f.
+ 
+ However, since the true relationship is linear, it is hard for a non-parametric approach to compete with linear regression: a non-parametric approach incurs a cost in variance that is not offset by a reduction in bias.
+ 
+ KNN performs slightly worse than linear regression when the relationship is linear, but much better than linear regression for non-linear situations. In a real life situation in which the true relationship is unknown, one might draw the conclusion that KNN should be favored over linear regression because it will at worst be slightly inferior than linear regression if the true relationship is linear, and may give substantially better results if the true relationship is non-linear. But in reality, even when the true relationship is highly non-linear, KNN may still provide inferior results to linear regression. But in higher dimensions, KNN often performs worse than linear regression.
+ 
+ This decrease in performance as the dimension increases is a common problem for KNN, and results from the fact that in higher dimensions there is effectively a reduction in sample size. 
