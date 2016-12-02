@@ -78,6 +78,68 @@ Ridge regression does have one obvious disadvantage. Unlike best subset, forward
 
 As with ridge regression, the lasso shrinks the coefficient estimates towards zero. However, in the case of the lasso, the L1 penalty has the effect of forcing some of the coefficient estimates to be exactly equal to zero when the tuning parameter λ is sufficiently large. Hence, much like best subset selection, the lasso performs variable selection. As a result, models generated from the lasso are generally much easier to interpret than those produced by ridge regression. We say that the lasso yields sparse models—that is, models that involve only a subset of the variables.
 
+##### The Variable Selection Property of the Lasso
+
+Why is it that the lasso, unlike ridge regression, results in coefficient estimates that are exactly equal to zero?
+
+See the image in page:222
+
+Since ridge regression has a circular constraint with no sharp points, this intersection will not generally occur on an axis, and so the ridge regression coefficient estimates will be exclusively non-zero. However, the lasso constraint has corners at each of the axes, and so the ellipse will often intersect the constraint region at an axis. When this occurs, one of the coefficients will equal zero. In higher dimensions, many of the coefficient estimates may equal zero simultaneously. 
+
+##### Comparing the Lasso and Ridge Regression
+
+It is clear that the lasso has a major advantage over ridge regression, in that it produces simpler and more interpretable models that involve only a subset of the predictors. However, which method leads to better prediction accuracy?
+
+In general, one might expect the lasso to perform better in a setting where a relatively small number of predictors have substantial coefficients, and the remaining predictors have coefficients that are very small or that equal zero. Ridge regression will perform better when the response is a function of many predictors, all with coefficients of roughly equal size.
+
+However, the number of predictors that is related to the response is never known a priori for real data sets. A technique such as cross-validation can be used in order to determine which approach is better on a particular data set.
+
+As with ridge regression, when the least squares estimates have excessively high variance, the lasso solution can yield a reduction in variance at the expense of a small increase in bias, and consequently can generate more accurate predictions. Unlike ridge regression, the lasso performs variable selection, and hence results in models that are easier to interpret.
+
+Ridge regression more or less shrinks every dimension of the data by the same proportion, whereas the lasso more or less shrinks all coefficients toward zero by a similar amount, and sufficiently small coefficients are shrunken all the way to zero.
+
+##### Bayesian Interpretation for Ridge Regression and the Lasso
+
+Read about it later after being able to do bayes thinking
+
+##### Selecting the Tuning Parameter
+
+Use the cross validation to select the best lambda for the above regularization methods (lasso and ridge).
+
+### Dimension Reduction Methods
+
+The methods that we have discussed so far in this chapter have controlled variance in two different ways, either by using a subset of the original variables, or by shrinking their coefficients toward zero. 
+
+We now explore a class of approaches that transform the predictors and then fit a least squares model using the transformed variables. We will refer to these techniques as dimension reduction methods.
+
+we will consider two approaches for this task: principal components and partial least squares.
+
+#### Principal Components Regression 
+
+The principal components regression (PCR) approach involves constructing the first M principal components, Z1, . . . , ZM, and then using these components as the predictors in a linear regression model that is fit using least squares. The key idea is that often a small number of principal components suffice to explain most of the variability in the data, as well as the relationship with the response. 
+
+We note that even though PCR provides a simple way to perform regression using M < p predictors, it is not a feature selection method. This is because each of the M principal components used in the regression is a linear combination of all p of the original features.
+
+#### Partial Least Squares
+
+PCR suffers from a drawback: there is no guarantee that the directions that best explain the predictors will also be the best directions to use for predicting the response.
+
+partial least squares (PLS) is a supervised alternative to PCR.
+
+PLS identifies these new features in a supervised way—that is, it makes use of the response Y in order to identify new features that not only approximate the old features well, but also that are related to the response. Roughly speaking, the PLS approach attempts to find directions that help explain both the response and the predictors.
+
+In practice it often performs no better than ridge regression or PCR. While the supervised dimension reduction of PLS can reduce bias, it also has the potential to increase variance, so that the overall benefit of PLS relative to PCR is a wash.
+
+### Considerations in High Dimensions
+
+What Goes Wrong in High Dimensions? 
+
+The problem is simple: when p > n or p ≈ n, a simple least squares regression line is too flexible and hence overfits the data.
+
+##### Regression in High Dimensions
+
+In general, adding additional signal features that are truly associated with the response will improve the fitted model, in the sense of leading to a reduction in test set error. However, adding noise features that are not truly associated with the response will lead to a deterioration in the fitted model, and consequently an increased test set error. This is because noise features increase the dimensionality of the problem, exacerbating the risk of overfitting (since noise features may be assigned nonzero coefficients due to chance associations with the response on the training set) without any potential upside in terms of improved test set error.
+
 
 
 
